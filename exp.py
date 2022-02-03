@@ -3,11 +3,11 @@ import os
 import pandas as pd
 
 # start by specifying your path:
-path = os.path.expanduser('~')+"/sciebo/Activate_Studie_2/"
+path = os.path.expanduser('~')+"/Activate2/"
 myExperiment = Act.Act(path)
 
 # # ## Example for an experiment with interactive visualization:
-# id = 'Hor'  # Patient ID
+# id = '007'  # Patient ID
 # # read all relevant pkl files:
 # d1 = pd.read_pickle(path + "_Pkl/" + id + '_Bangle.pkl')
 # d2 = pd.read_pickle(path + "_Pkl/" + id + '_GT3X.pkl')
