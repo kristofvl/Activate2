@@ -212,6 +212,8 @@ class Act:
             f.gca().plot(d11_agg.index, 120*(d11_agg/max(d11_agg))+120, 'm')
             f.gca().fill_between(d11_agg.index, 120*(d11_agg/max(d11_agg)) + 120, 120, color='m')
             if write_to_fig:
+                if not os.path.exists('_Fig'):
+                    os.makedirs('_Fig')
                 f.savefig(self.path + "_Fig/" + id + '.png')
                 print("  - written to png figure")
             f.close()
