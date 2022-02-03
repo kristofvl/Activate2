@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 # Activate class that hold all data and algorithms for our experiment:
 class Act:
-    path = "/Users/kvl/sciebo/Activate_Studie_2/"  # path to data files
+    path = "~/Activate2/"  # path to data files
 
     # List of participants and day-long recordings:
     ids = [str(item).zfill(3) for item in range(1,33)] # 27 persons, 33 days
