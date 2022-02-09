@@ -17,15 +17,15 @@ class Act:
     # read all CSV data for one participant
     def read(self, name):
         # read Bangle data:
-        d1 = pd.read_csv(self.path + "/_CSV/" + name + '_Bangle.csv', names=['time', 'acc_x', 'acc_y', 'acc_z', 'g'], sep="\s+|;|,",
+        d1 = pd.read_csv(name + '_Bangle.csv', names=['time', 'acc_x', 'acc_y', 'acc_z', 'g'], sep="\s+|;|,",
                          engine='python')
         del d1["g"]
         # read GT3X data:
-        d2 = pd.read_csv(self.path + "/_CSV/" + name + '_GT3X.csv', names=['time', 'acc_x', 'acc_y', 'acc_z'], header=10)
+        d2 = pd.read_csv(name + '_GT3X.csv', names=['time', 'acc_x', 'acc_y', 'acc_z'], header=10)
         # read ActiLife output:
         try:
             # d11 = pd.read_csv(name + '_steps.csv', names=['time', 's1', 's2'], header=1)
-            d11 = pd.read_csv(self.path + "/_CSV/" + name + '_steps_GT3X.csv', names=['time', 's'], header=1)
+            d11 = pd.read_csv(name + '_steps_GT3X.csv', names=['time', 's'], header=1)
         except:
             d11 = []
         # convert timestamps:
