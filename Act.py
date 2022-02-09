@@ -55,11 +55,6 @@ class Act:
         # return dataframes:
         return d1, d2, d11
 
-    ## Open source step detector oxford step detector
-    ## PDF: https://www.diva-portal.org/smash/get/diva2:1474455/FULLTEXT01.pdf
-    ## https://github.com/Oxford-step-counter/C-Step-Counter
-    #def step_oxford(self, ???):
-
     # Activate's step detector, using dataframe d, and parameters (consec, intv, th)
     def step(self, d, consec=6, intv=80, th=0.6):
         consecSteps = 0
@@ -98,7 +93,68 @@ class Act:
     ##    - the number of steps of the walking segment
     ##    - the variability of steps in the walking segment (similar to heartrate variability)
     ##    - the average amplitude of the peak that caused the steps
-    #def walk_detect(self, d1):
+    def walk_detect(self, d, windowSize, threshold):
+        def slidingWindow(sequence, winSize, step=1):
+          """Returns a generator that will iterate through
+          the defined chunks of input sequence.
+          
+          Arguments: 
+          sequence: Dataset for which sliding window is generated
+          winSize: window size for iteration
+          step: number of steps in the window
+          
+          """
+          # Verify the inputs
+          try: 
+              it = iter(sequence)
+          except TypeError:
+              raise Exception("**ERROR** sequence must be iterable.")
+          if not ((type(winSize) == type(0)) and (type(step) == type(0))):
+              raise Exception("**ERROR** type(winSize) and type(step) must be int.")
+          if step > winSize:
+              raise Exception("**ERROR** step must not be larger than winSize.")
+          if winSize > len(sequence):
+              raise Exception("**ERROR** winSize must not be larger than sequence length.")
+    
+          # Pre-compute number of chunks to emit
+          numOfChunks = int((len(sequence)-winSize)/step)+1
+          
+          # yield the iterable
+          for i in range(0,numOfChunks*step,step):
+              yield i, sequence[i:i+winSize]
+        
+        start_time= []
+        stop_time = []
+        steps_count = []
+        mag = [] 
+        ws = [0] * len(d)
+
+
+        for i, window in slidingWindow(d, windowSize, 1):
+            window.s = window.s * 1
+            if window.s.sum() > threshold:
+                ws[i] = 1
+                mag_temp = []
+                # add start time
+                start_time.append(window["time"].iloc[0]) 
+                # add stop time
+                stop_time.append(window["time"].iloc[windowSize - 1]) 
+                # add steps count
+                steps_count.append(window["s"].sum()) 
+                # add magnitude
+                for j in range(0, windowSize - 1): 
+                    # get magnitudes
+                    mag_temp.append(((window["acc_x"].iloc[j] ** 2 + window["acc_y"].iloc[j] ** 2 + window["acc_z"].iloc[j] ** 2) ** .5) / 2) 
+                mag.append(sum(mag_temp) / len(mag_temp)) 
+            else:
+              ws[i] = 0
+
+        d["ws"] = ws
+
+        # Zip and Return DataFrame consisting of start time, stop time, steps count and average amplitude       
+        df_main = pd.DataFrame(list(zip(start_time, stop_time, steps_count, mag)), columns = ["start", "stop", "steps_count", "average amplitude"])
+
+        return df_main
 
 
     # read and plot the data for one participant
