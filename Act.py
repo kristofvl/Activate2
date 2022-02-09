@@ -177,9 +177,11 @@ class Act:
             #ax3.bar(d11["time"], d11["s2"] / d11["s2"].max(), bottom=1, width=0.0007)  # for minute-aggregated values
             ax3.plot(d11["time"], d11["s"]>0, 'm', lw=0.1)
         if 's' in d1.columns:
-            ax3.plot(d1["time"], d1["s"] - 1, 'r', lw=0.1)
+            ax3.plot(d1["time"], d1["s"] - 1, 'r', lw=0.2)
+            ax3.plot(d1["time"], d1["ws"] - 1, 'k', lw = 0.2)
         if 's' in d2.columns:
-            ax3.plot(d2["time"], d2["s"] - 2, 'k', lw=0.1)
+            ax3.plot(d2["time"], d2["s"] - 2, 'k', lw=0.2)
+            ax3.plot(d2["time"], d2["ws"] - 2, 'r', lw=0.2)
         ax3.set_ylabel('Steps')
         ax3.set_ylim(-2, 1)
         ax3.set_yticks([-1.5, -0.5, 0.5])
