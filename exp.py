@@ -39,10 +39,10 @@ myExperiment = Act.Act(path)
 # f.show()
 
 # ## Example for a full experiment that takes all data files, calculates the best parameters for
-# ## step detection, and outputs everything to a set of plots and dataframes:
-#ret = myExperiment.parse(read_from_csv=False, write_to_pickle=True, write_to_fig=True, param_search=True)
+# ## step detection, walking segments detection and outputs everything to a set of plots and dataframes:
+#ret = myExperiment.parse(read_from_csv=False, write_to_pickle=True, write_to_fig=True, param_search=True, walking_detect = True)
 # ## Example for a reduced experiment that takes all data files, takes fixed parameters that were determined beforehand for
-# ## step detection, and outputs everything to a set of plots and dataframes:
+# ## step detection, walking segment detection and outputs everything to a set of plots and dataframes:
 ret = myExperiment.parse(read_from_csv=False, write_to_pickle=False, write_to_fig=True, param_search=False, walking_detect = True)
 ret = pd.DataFrame(ret, columns = ["id", "t1", "t21", "dur", "steps",
                                    "bangle_s", "bangle_th", "bangle_c",
