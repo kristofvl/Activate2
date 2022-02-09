@@ -12,9 +12,17 @@ myExperiment = Act.Act(path)
 # d1 = pd.read_pickle(path + "_Pkl/" + id + '_Bangle.pkl')
 # d2 = pd.read_pickle(path + "_Pkl/" + id + '_GT3X.pkl')
 # d11 = pd.read_pickle(path + "_Pkl/" + id + '_steps_GT3X.pkl')
+# # read all relevant csv files:
+# d1, d2, d11 = myExperiment.read(id)
 # # detect steps and add these as an extra  column "s" to the dataframes:
 # d1 = myExperiment.step(d1, consec=2, intv=80, th=0.62)  # step detection for Bangle.js
 # d2 = myExperiment.step(d2, consec=1, intv=33, th=0.56)  # step detection for GT3X
+# # detects walking and add as an extra column "ws" to the dataframes:
+# # For time period of 2 Seconds, where more than 2 steps are considered as walking
+# # Bangle (with intv = 80), windowSize = 25 (2000 msec / 80), threshold = 2  
+# # GT3X (with intv = 33), windowSize = 60 (2000 msec / 33), threshold = 2
+# df_walking_bangle = myExperiment.walk_detect(d1, windowSize = 25, threshold = 2) # Walking detection for Bangle
+# df_walking_gt3x = myExperiment.walk_detect(d2, windowSize = 60, threshold = 2) # Walking Detection for GT3X
 # # sum all steps per minute bin:
 # d1_agg = d1.resample('Min', on='time')["s"].sum()
 # d2_agg = d2.resample('Min', on='time')["s"].sum()
