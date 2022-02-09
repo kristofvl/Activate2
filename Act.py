@@ -263,6 +263,7 @@ class Act:
                 d2_agg.to_pickle(self.path + "_Pkl/" + id + '_GT3X_steps1m.pkl')
                 d11_agg.to_pickle(self.path + "_Pkl/" + id + '_steps_GT3X_1m.pkl')
                 print("  - written to pickle format")
+            ## detect walking segments:
             if walking_detect:
                 d1_walking  = self.walk_detect(d1, windowSize = 25, threshold = 2)
                 d2_walking = self.walk_detect(d2, windowSize = 60, threshold = 2)
@@ -282,6 +283,7 @@ class Act:
                          (d1["time"].iloc[-1] - d1["time"].iloc[0]).total_seconds() / 3600,
                         target_steps, bangle_steps, bangle_th, bangle_c,
                         gt3x_steps, gt3x_th, gt3x_c, bangle_corr, gt3x_corr])
+            ## save walking segments as per id
             d1_walking.to_csv(self.path + "/_Pkl/" + id + '_Bangle_walking_segments.csv')
             d2_walking.to_csv(self.path + "/_Pkl/" + id + '_GT3X_walking_segments.csv')
         return ret, d1_walking, d2_walking
