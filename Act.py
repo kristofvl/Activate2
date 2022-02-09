@@ -30,9 +30,9 @@ class Act:
             d11 = []
         # convert timestamps:
         d1["time"] = [dt.datetime.strptime(d1_t, "%H:%M:%S.%f") for d1_t in d1["time"]]
-        if name[-3:] == 'Wit':
+        if name[-3:] == '032':
             d2["time"] = [dt.datetime.strptime(d2_t, "%m/%d/%Y %H:%M:%S.%f") for d2_t in
-                          d2["time"]]  # Wit has other format
+                          d2["time"]]  # 032 has other format
         else:
             d2["time"] = [dt.datetime.strptime(d2_t, "%d-%b-%y %H:%M:%S.%f") for d2_t in d2["time"]]
         d1["time"] = [d1_t.replace(month=d2["time"][0].month, year=d2["time"][0].year, day=d2["time"][0].day) for d1_t
