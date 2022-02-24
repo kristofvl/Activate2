@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 
 # Activate class that hold all data and algorithms for our experiment:
 class Act:
-    path = os.path.expanduser('~')+"/Activate2/"  # path to data files
-
+    #path = os.path.expanduser('~')+"/Activate2/"  # path to data files
+    
     # List of participants and day-long recordings:
-    ids = [str(item).zfill(3) for item in range(1,33)] # 27 persons, 33 days
-
+    ids = [str(item).zfill(3) for item in range(1,34)] # 27 persons, 33 days
+    
     # allow constructor to specify path
     def __init__(self, path):
         self.path = path
@@ -17,15 +17,15 @@ class Act:
     # read all CSV data for one participant
     def read(self, name):
         # read Bangle data:
-        d1 = pd.read_csv(name + '_Bangle.csv', names=['time', 'acc_x', 'acc_y', 'acc_z', 'g'], sep="\s+|;|,",
+        d1 = pd.read_csv(self.path + "_CSV/" +  name + '_Bangle.csv', names=['time', 'acc_x', 'acc_y', 'acc_z', 'g'], sep="\s+|;|,",
                          engine='python')
         del d1["g"]
         # read GT3X data:
-        d2 = pd.read_csv(name + '_GT3X.csv', names=['time', 'acc_x', 'acc_y', 'acc_z'], header=10)
+        d2 = pd.read_csv(self.path + "_CSV/" + name + '_GT3X.csv', names=['time', 'acc_x', 'acc_y', 'acc_z'], header=10)
         # read ActiLife output:
         try:
             # d11 = pd.read_csv(name + '_steps.csv', names=['time', 's1', 's2'], header=1)
-            d11 = pd.read_csv(name + '_steps_GT3X.csv', names=['time', 's'], header=1)
+            d11 = pd.read_csv(self.path + "_CSV/" +  name + '_steps_GT3X.csv', names=['time', 's'], header=1)
         except:
             d11 = []
         # convert timestamps:
@@ -175,17 +175,19 @@ class Act:
         if len(d11) > 0:
             #ax3.bar(d11["time"], d11["s1"] / d11["s1"].max(), width=0.0007)  # for minute-aggregated values
             #ax3.bar(d11["time"], d11["s2"] / d11["s2"].max(), bottom=1, width=0.0007)  # for minute-aggregated values
-            ax3.plot(d11["time"], d11["s"]>0, 'm', lw=0.1)
+            ax3.plot(d11["time"], d11["s"] > 0, 'm', lw=0.1)
         if 's' in d1.columns:
-            ax3.plot(d1["time"], d1["s"] - 1, 'r', lw=0.2)
-            ax3.plot(d1["time"], d1["ws"] - 1, 'k', lw = 0.2)
+            ax3.plot(d1["time"], d1["s"] - 1, 'r', lw=0.1)
+            #ax3.plot(d1["time"], d1["ws"] - 1, 'k', lw = 0.2)
         if 's' in d2.columns:
-            ax3.plot(d2["time"], d2["s"] - 2, 'k', lw=0.2)
-            ax3.plot(d2["time"], d2["ws"] - 2, 'r', lw=0.2)
+            ax3.plot(d2["time"], d2["s"] - 2, 'k', lw=0.1)
+            #ax3.plot(d2["time"], d2["ws"] - 2, 'r', lw=0.2)
+        ax3.plot(d1["time"], d1["ws"] - 3 , 'r', drawstyle = 'steps-mid', lw = 0.2)
+        ax3.plot(d2["time"], d2["ws"] - 4 , 'k', drawstyle = 'steps-mid', lw = 0.2)
         ax3.set_ylabel('Steps')
-        ax3.set_ylim(-2, 1)
-        ax3.set_yticks([-1.5, -0.5, 0.5])
-        ax3.set_yticklabels(['G', 'B', 'A'])
+        ax3.set_ylim(-4, 1)
+        ax3.set_yticks([-3.5, -2.5 ,-1.5, -0.5, 0.5])
+        ax3.set_yticklabels(['W_G', 'W_B', 'G', 'B', 'A'])
         ax4.set_ylabel('Steps/min')
         ax4.set_ylim(0, 240)
         ax4.set_yticks([0, 120])
@@ -223,7 +225,7 @@ class Act:
         for id in self.ids:
             if read_from_csv:
                 print("Reading data from " + self.path + "_CSV/" + id)
-                d1, d2, d11 = self.read(self.path + "_CSV/" + id)
+                d1, d2, d11 = self.read(id)
                 print("  - time span:", d1["time"].iloc[0], "-", d1["time"].iloc[-1], " = ",
                       (d1["time"].iloc[-1]-d1["time"].iloc[0]).total_seconds() / 3600, "hrs.")
             else:
@@ -265,8 +267,8 @@ class Act:
                 print("  - written to pickle format")
             ## detect walking segments:
             if walking_detect:
-                d1_walking  = self.walk_detect(d1, windowSize = 25, threshold = 2)
-                d2_walking = self.walk_detect(d2, windowSize = 60, threshold = 2)
+                d1_walking  = self.walk_detect(d1, windowSize = 1500, threshold = 99)
+                d2_walking = self.walk_detect(d2, windowSize = 3636, threshold = 99)
             ## plot and add histograms:
             f = self.plot(d1, d2, d11)  # use participant code
             f.gca().plot(d1_agg.index, 120*(d1_agg/max(d1_agg)), 'r')

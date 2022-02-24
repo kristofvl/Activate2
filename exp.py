@@ -7,22 +7,22 @@ path = os.path.expanduser('~')+"/Activate2/"
 myExperiment = Act.Act(path)
 
 # # ## Example for an experiment with interactive visualization:
-# id = '007'  # Patient ID
+#id = '003'  # Patient ID
 # # read all relevant pkl files:
 # d1 = pd.read_pickle(path + "_Pkl/" + id + '_Bangle.pkl')
 # d2 = pd.read_pickle(path + "_Pkl/" + id + '_GT3X.pkl')
 # d11 = pd.read_pickle(path + "_Pkl/" + id + '_steps_GT3X.pkl')
 # # read all relevant csv files:
-# d1, d2, d11 = myExperiment.read(id)
+#d1, d2, d11 = myExperiment.read(id)
 # # detect steps and add these as an extra  column "s" to the dataframes:
-# d1 = myExperiment.step(d1, consec=2, intv=80, th=0.62)  # step detection for Bangle.js
-# d2 = myExperiment.step(d2, consec=1, intv=33, th=0.56)  # step detection for GT3X
+#d1 = myExperiment.step(d1, consec=2, intv=80, th=0.62)  # step detection for Bangle.js
+#d2 = myExperiment.step(d2, consec=1, intv=33, th=0.56)  # step detection for GT3X
 # # detects walking and add as an extra column "ws" to the dataframes:
-# # For time period of 2 Seconds, where more than 2 steps are considered as walking
-# # Bangle (with intv = 80), windowSize = 25 (2000 msec / 80), threshold = 2  
+# # For time period of 120 Seconds, where more than 2 steps are considered as walking
+# # Bangle (with intv = 80), windowSize = 750 (2000 msec / 80), threshold = 2  
 # # GT3X (with intv = 33), windowSize = 60 (2000 msec / 33), threshold = 2
-# df_walking_bangle = myExperiment.walk_detect(d1, windowSize = 25, threshold = 2) # Walking detection for Bangle
-# df_walking_gt3x = myExperiment.walk_detect(d2, windowSize = 60, threshold = 2) # Walking Detection for GT3X
+#df_walking_bangle = myExperiment.walk_detect(d1, windowSize = 1500, threshold = 99) # Walking detection for Bangle
+#df_walking_gt3x = myExperiment.walk_detect(d2, windowSize = 3636, threshold = 99) # Walking Detection for GT3X
 # # sum all steps per minute bin:
 # d1_agg = d1.resample('Min', on='time')["s"].sum()
 # d2_agg = d2.resample('Min', on='time')["s"].sum()
@@ -43,7 +43,7 @@ myExperiment = Act.Act(path)
 #ret = myExperiment.parse(read_from_csv=False, write_to_pickle=True, write_to_fig=True, param_search=True, walking_detect = True)
 # ## Example for a reduced experiment that takes all data files, takes fixed parameters that were determined beforehand for
 # ## step detection, walking segment detection and outputs everything to a set of plots and dataframes:
-ret = myExperiment.parse(read_from_csv=False, write_to_pickle=False, write_to_fig=True, param_search=False, walking_detect = True)
+ret = myExperiment.parse(read_from_csv=True, write_to_pickle=False, write_to_fig=True, param_search=False, walking_detect = True)
 ret = pd.DataFrame(ret, columns = ["id", "t1", "t21", "dur", "steps",
                                    "bangle_s", "bangle_th", "bangle_c",
                                    "gt3x_s", "gt3x_th", "gt3x_c", "bangle_corr", "gt3x_corr"])
