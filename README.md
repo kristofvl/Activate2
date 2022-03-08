@@ -12,7 +12,7 @@ To run the experiment, simply clone this repository and execute the exp.py scrip
 
 * `_CSV` contains the dataframes for 27 Participants from 001 to 033
 * `_Fig` contains the plots of accelerometer values, steps, walking, and steps/min for all the participants
-* `_Pkl` contains the Pkl files of the dataframes
+* `_Pkl` contains the Pkl files of the dataframes and the Walking Segment CSV files
  
 
 
