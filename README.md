@@ -46,12 +46,12 @@ To run this notebook in colab, simply open the file and click on the **Open In C
 
  ## Result Plots
 
-*** Plot for ID: 006 ***
+Plot for ID: 006
 
 ![006](https://user-images.githubusercontent.com/85766211/157211750-0ad83f9f-f198-4f35-8004-16652c31b7bb.png)
 
 
-*** Plot for ID: 013 ***
+Plot for ID: 013
 
 ![013](https://user-images.githubusercontent.com/85766211/157211777-68bca3ea-1f28-4438-a387-ea09044937b9.png)
 
