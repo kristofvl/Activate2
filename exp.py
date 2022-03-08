@@ -19,8 +19,8 @@ myExperiment = Act.Act(path)
 #d2 = myExperiment.step(d2, consec=1, intv=33, th=0.56)  # step detection for GT3X
 # # detects walking and add as an extra column "ws" to the dataframes:
 # # For time period of 120 Seconds, where more than 2 steps are considered as walking
-# # Bangle (with intv = 80), windowSize = 750 (2000 msec / 80), threshold = 2  
-# # GT3X (with intv = 33), windowSize = 60 (2000 msec / 33), threshold = 2
+# # Bangle (with intv = 80), windowSize = 1500 (2000 msec / 80), threshold = 99  
+# # GT3X (with intv = 33), windowSize = 2000 (2000 msec / 33), threshold = 99
 #df_walking_bangle = myExperiment.walk_detect(d1, windowSize = 1500, threshold = 99) # Walking detection for Bangle
 #df_walking_gt3x = myExperiment.walk_detect(d2, windowSize = 3636, threshold = 99) # Walking Detection for GT3X
 # # sum all steps per minute bin:
