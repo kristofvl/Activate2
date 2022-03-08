@@ -48,7 +48,7 @@ To run this notebook in colab, simply open the file and click on the **Open In C
 
 Plot for ID: 006
 
-![006](https://user-images.githubusercontent.com/85766211/157211750-0ad83f9f-f198-4f35-8004-16652c31b7bb.png | height = 200)
+![006](https://user-images.githubusercontent.com/85766211/157211750-0ad83f9f-f198-4f35-8004-16652c31b7bb.png)
 
 
 
