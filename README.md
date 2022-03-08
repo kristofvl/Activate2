@@ -29,7 +29,7 @@ You can copy, modify, distribute and perform the work, even for commercial purpo
  - When using or citing the work, you should not imply endorsement by the author or the affirmer.
 
 
-## Step Detection and Walking Detection Consistsn of 4 Steps:
+## Step Detection and Walking Detection Consists of 4 Steps:
 
 1. Modules and Repository Import
 2. Class and Function Declarations
@@ -44,12 +44,12 @@ To run this notebook in colab, simply open the file and click on the **Open In C
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a> ) present at the top in the notebook.
 
-** Result Plots**
+ ## Result Plots
 
 *** Plot for ID: 006 ***
 
-(/_Fig/006.png) <br />
+(https://user-images.githubusercontent.com/85766211/157211466-b0963353-1bd2-49fc-9dfd-327ace9da92e.png) <br />
 
 *** Plot for ID: 010 ***
 
-(/_Fig/010.png)
+![010](https://user-images.githubusercontent.com/85766211/157211586-67aab8b2-d87d-4004-8751-f2677a65baa1.png)
