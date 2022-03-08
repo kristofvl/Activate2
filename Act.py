@@ -16,6 +16,18 @@ class Act:
 
     # read all CSV data for one participant
     def read(self, name):
+        '''
+        Reads the CSV data and cleans the dataframe for the given participant
+        
+        Parameters:
+        
+        name (ID of the participant)
+
+        Returns:
+
+        Cleaned Dataframes for Actigraph, Bangle and GT3X
+
+        '''
         # read Bangle data:
         d1 = pd.read_csv(self.path + "_CSV/" +  name + '_Bangle.csv', names=['time', 'acc_x', 'acc_y', 'acc_z', 'g'], sep="\s+|;|,",
                          engine='python')
@@ -57,6 +69,21 @@ class Act:
 
     # Activate's step detector, using dataframe d, and parameters (consec, intv, th)
     def step(self, d, consec=6, intv=80, th=0.6):
+        '''
+        Step Detection using the cleaned Dataframe
+
+        Parameters:
+        
+        d : Dataframe in which steps are to be detected
+        consec : Consecutive Steps as threshold value for step detection
+        intv: Sampling of the dataframe
+        th: Threshold value for step detection using accelerometer values
+
+        Returns: 
+        
+        DataFrame with column "s" denoting occurence of a step
+
+        '''
         consecSteps = 0
         stepsInt = 0
         stepTimeDiff = 0
@@ -87,22 +114,39 @@ class Act:
         d["s"] = [m == 100 for m in mag]
         return d
 
-    ## Detect walking segments from a dataset, using the above step detector, and
-    ## return a pandas dataframe with the following columns:
-    ##    - start and stop timestamps of the walking segment (datetime)
-    ##    - the number of steps of the walking segment
-    ##    - the variability of steps in the walking segment (similar to heartrate variability)
-    ##    - the average amplitude of the peak that caused the steps
+    # Walking Segment detector, using dataframe d, and parameters (windowSize and threshold)
     def walk_detect(self, d, windowSize, threshold):
+        """
+        Walking Segment Detection using Step Detector
+
+        Parameters: 
+
+        d: Dataframe with step detector algorithm
+        windowSize: window size for iteration 
+        threshold:number of steps in the window
+
+        Returns: 
+
+        Dataframe with following columns:
+
+        - start and stop timestamps of the walking segment (datetime)
+        - the number of steps of the walking segment
+        - the average amplitude of the peak that caused the steps
+
+        """
         def slidingWindow(sequence, winSize, step=1):
-          """Returns a generator that will iterate through
-          the defined chunks of input sequence.
+          """
           
-          Arguments: 
+          Parameters: 
           sequence: Dataset for which sliding window is generated
           winSize: window size for iteration
           step: number of steps in the window
           
+          Returns: 
+
+          Generator iterates through
+          the defined chunks of input sequence.
+
           """
           # Verify the inputs
           try: 
@@ -159,6 +203,20 @@ class Act:
 
     # read and plot the data for one participant
     def plot(self, d1, d2, d11=[]):
+        '''
+        Reads the data for one for one participant
+
+        Parameters: Dataframes wiht Step and Walking Detection Algorithms for Actigraph, Bangle and GT3X
+
+        Returns:
+        Plot of the following:
+        - Accelerometer Magnitudes for Bangle Data
+        - Accelerometer Magnitudes for GT3X Data
+        - Steps for Actigraph, Bangle and GT3X Data
+        - Walking Segments for Bangle and GT3X Data
+        - Steps per minute for Actigraph and Bangle
+        
+        '''
         # plot:
         fig, (ax1, ax2, ax3, ax4) = plt.subplots(sharex=True, nrows=4, figsize=(27, 4))
         ax1.plot(d1["time"], d1[["acc_x", "acc_y", "acc_z"]], lw=0.2)
@@ -201,8 +259,13 @@ class Act:
         os.system("sed -i '' '/^t/d' " + name + "_Bangle.csv")  # remove headers (that start with t)
 
     def parse(self, read_from_csv=True, write_to_pickle=True, write_to_fig=True, param_search=False, walking_detect = True):
-        # helper function that does a brute-force search for a best parameters,
-        # returns best threshold _th, best consecutive steps _consecs, and number of found _steps:
+        '''
+        Helper function that does a brute-force search for a best parameters
+        
+        Returns:
+        best threshold _th, best consecutive steps _consecs, number of found _steps
+        and Dataframe consisting of walking segments for the participants
+        '''
         def find_step_p(d, consec, intv, target_steps):
             _th = _best_th = 0.65
             jump = 0.01
