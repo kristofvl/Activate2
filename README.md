@@ -8,6 +8,8 @@ To run the experiment, simply clone this repository and execute the exp.py scrip
 
 > python exp.py <kbd>Return</kbd>
 
+The class and functions are declared in Act.py
+
 # Organisation
 
 * `_CSV` contains the dataframes for 27 Participants from 001 to 033
@@ -36,7 +38,7 @@ You can copy, modify, distribute and perform the work, even for commercial purpo
 3. Data Exploration and Analysis
 4. Data Visualization
 
-The main functions are declared and explained in the second step. Optimal parameters are used to detect the step.
+Optimal parameters are used to detect the step. From the steps detected, a sliding window approach is used to ascertain walking withing a particular window. 
 
 The python notebook `Steps_and_Walking_Detection.ipynb` can be found in the repository.
 
