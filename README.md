@@ -42,7 +42,7 @@ Optimal parameters are used to detect the step. From the steps detected, a slidi
 
 The python notebook `Steps_and_Walking_Detection.ipynb` can be found in the repository.
 
-To run this notebook in colab, simply open the file and click on the **Open In Colab** Badge (<a href="https://colab.research.google.com/github/kristofvl/Activate2/blob/main/Steps_and_Walking_Detection.ipynb">
+To run this notebook in colab, simply open the file and click on the **Open In Colab** Badge (<a href="https://colab.research.google.com/github/kristofvl/Activate2/blob/main/Steps_and_Walking_Detection_v1.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a> ) present at the top in the notebook.
 
