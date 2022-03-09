@@ -38,7 +38,7 @@ You can copy, modify, distribute and perform the work, even for commercial purpo
 3. Data Exploration and Analysis
 4. Data Visualization
 
-After importing the necessary modules and cloning the repository for the CSV files, optimal parameters are used to detect the step. From the steps detected, a sliding window approach is used to ascertain walking withing a particular window. The data (accelerometer values, steps, walking segments) are then plotted in the form of a time series graph.
+After importing the necessary modules and cloning the repository for the CSV files, optimal parameters are used to detect the step. From the steps detected, a sliding window approach is used to ascertain walking within a particular window. The data (accelerometer values, steps, walking segments) are then plotted in the form of a time series graph.
 
 The python notebook `Steps_and_Walking_Detection.ipynb` can be found in the repository.
 
